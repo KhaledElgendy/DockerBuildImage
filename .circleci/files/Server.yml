@@ -61,7 +61,7 @@ Resources:
           apt install conntrack -y
           minikube start --driver=none
           minikube status
-          kubectl create deployment hello-node --image=khaledelgendy/mylocalapp
+          kubectl create deployment hello-node --image=khaledelgendy/capstoneproject
           kubectl expose deployment hello-node --type=NodePort --port=8080
           kubectl get pods
           kubectl get svc
