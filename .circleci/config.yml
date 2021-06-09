@@ -11,7 +11,9 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 19.03.13
-      - run: |
+      - run:
+          name: Docker image build and push to github
+          command: |
           TAG=0.1.$CIRCLE_BUILD_NUM
           docker build -t khaledelgendy/capstoneproject:$TAG .
           docker login -u khaledelgendy -p $DOCKERHUB_PASSWORD
