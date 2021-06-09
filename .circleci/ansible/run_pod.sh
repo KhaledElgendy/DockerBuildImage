@@ -11,5 +11,5 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 apt install conntrack -y
 minikube start --driver=none
 minikube status
-kubectl create deployment hello-world --image=khaledelgendy/mylocalapp
+kubectl create deployment hello-world --image=khaledelgendy/capstoneproject
 kubectl expose deployment hello-world --port=8080 --target-port=8080 --type=NodePort  --overrides '{ "apiVersion": "v1","spec":{"ports":[{"port":8080,"protocol":"TCP","targetPort":8080,"nodePort":30031}]}}'
