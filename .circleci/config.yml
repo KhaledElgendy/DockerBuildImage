@@ -14,5 +14,5 @@ jobs:
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
           docker build -t khaledelgendy/capstoneproject:$TAG .
-          echo $DOCKER_PASS | docker login -u khaledelgendy --password-stdin
+          docker login -u khaledelgendy -p $DOCKER_PASS 
           docker push haledelgendy/capstoneproject:$TAG
