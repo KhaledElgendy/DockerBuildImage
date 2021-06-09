@@ -34,6 +34,31 @@ jobs:
             . venv/bin/activate
             make lint
   
+  deploy-backend:
+    docker:
+      - image: "python:3.7-alpine3.11"
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["2a:61:87:b2:d8:ca:74:8e:da:02:d5:b9:98:ef:00:7a"]
+      - attach_workspace:
+          at: .circleci/ansible/
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible
+            apk add --update tar
+            apk add --update gzip
+            apk add --update curl
+            apk add --update openssh-client
+      - run:
+          name: Build the image and push it to DockerHub
+          command: |
+            ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ./.circleci/ansible/inventory.txt ./.circleci/ansible/deploy-backend.yml
+      - run:
+          name: Configure server
+          command: |
+            ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ./.circleci/ansible/inventory.txt ./.circleci/ansible/deploy-backend.yml
 
 workflows:
   default:
